@@ -19,9 +19,8 @@ body {
 	background: white;
 	border-radius: 15px;
 	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	max-width: 800px;
-	width: 100%;
+	padding: 20px;	
+	width: 960px;
 	min-height: 95vh;
 }
 
@@ -40,13 +39,13 @@ h2 {
 	font-size: 2rem;
 }
 
-#progress-bar {
+#progress-info {
 	display: flex;
 	gap: 16px;
 	margin-bottom: 20px;
 }
 
-#progress-bar div {
+#progress-info div {
 	background: #667eea;
 	color: white;
 	padding: 8px 16px;
@@ -169,7 +168,8 @@ h2 {
 	color: #333;
 }
 
-#score, #total-questions {
+#score,
+#total-questions {
 	font-weight: bold;
 	color: #e6b801ff;
 	font-size: 1.5rem;
@@ -205,11 +205,13 @@ h2 {
 	overflow: hidden;
 }
 
-.progress-bar {
-	background: linear-gradient(90deg, #667eea, #764ba2);
-	height: 100%;
+#progress-bar {
+	background: linear-gradient(90deg, #104683ff, #9eec62ff);
+	height: 16px;
 	transition: width 0.3s ease;
 	border-radius: 10px;
+	border: 2px solid #104683ff;
+	margin-block: 16px;
 }
 
 .question-counter {
