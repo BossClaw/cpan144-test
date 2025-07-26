@@ -4,6 +4,7 @@ class QuizApp {
         this.questions = [];
         this.currentQuestionIndex = 0;
         this.score = 0;
+        this.firstAttemptCorrect = 0; // New variable to track first attempt correct answers
         this.selectedAnswer = null;
         this.answered = false;
         
@@ -42,7 +43,8 @@ class QuizApp {
                 category.questions.forEach(question => {
                     this.questions.push({
                         ...question,
-                        category: category.category
+                        category: category.category,
+                        answeredCorrectlyOnFirstAttempt: false // New property for each question
                     });
                 });
             });
@@ -101,20 +103,20 @@ class QuizApp {
         const question = this.questions[this.currentQuestionIndex];
         
         // Add fade-in animation
-        this.quizArea.classList.add("fade-in");
-        setTimeout(() => this.quizArea.classList.remove("fade-in"), 500);
+        // this.quizArea.classList.add("fade-in");
+        // setTimeout(() => this.quizArea.classList.remove("fade-in"), 125);
         
         // PROGRESS
         this.questionProgress.textContent = "" + this.currentQuestionIndex + "/" + this.questions.length;
 
-        // ADD ACTUAL QUESTION CONTENT
+        // ACTUAL CONTENT
         this.questionCategory.textContent = question.category;
         this.questionText.textContent = question.question;
         
         this.optionsContainer.innerHTML = "";
         this.feedback.style.display = "none";
         this.nextButton.disabled = true;
-        this.answered = false;
+        this.answered = false; // Reset answered status for new question
         this.selectedAnswer = null;
         
         // Shuffle options for the current question
@@ -134,21 +136,27 @@ class QuizApp {
     }
     
     selectAnswer(selectedOptionElement, isCorrect) {
-        if (this.answered && !isCorrect) return; // Allow re-selection if incorrect
-        
+        const currentQuestion = this.questions[this.currentQuestionIndex];
+
+        // If already answered correctly on first attempt, or if it's not the first attempt and it's incorrect, do nothing
+        if (currentQuestion.answeredCorrectlyOnFirstAttempt || (this.answered && !isCorrect)) {
+            return;
+        }
+
         const options = this.optionsContainer.querySelectorAll(".option");
         
-        // Clear previous feedback and selections
-        this.feedback.style.display = "none";
-        options.forEach(option => {
-            option.classList.remove("selected", "correct", "incorrect", "disabled");
-        });
+        // Clear previous feedback and selections for re-attempts
+        if (!this.answered) { // Only clear if it's the very first attempt for this question
+            this.feedback.style.display = "none";
+            options.forEach(option => {
+                option.classList.remove("selected", "correct", "incorrect", "disabled");
+            });
+        }
 
         selectedOptionElement.classList.add("selected");
 
-        const question = this.questions[this.currentQuestionIndex];
         const originalIndex = parseInt(selectedOptionElement.dataset.originalIndex);
-        const selectedOption = question.options[originalIndex];
+        const selectedOption = currentQuestion.options[originalIndex];
 
         this.feedback.textContent = selectedOption.explanation;
         this.feedback.style.display = "block";
@@ -156,14 +164,18 @@ class QuizApp {
         if (isCorrect) {
             this.feedback.className = "feedback correct";
             selectedOptionElement.classList.add("correct");
-            this.score++;
+            
+            if (!this.answered) { // Only increment if it's the first attempt for this question
+                this.firstAttemptCorrect++;
+                currentQuestion.answeredCorrectlyOnFirstAttempt = true; // Mark question as answered correctly on first attempt
+            }
             this.answered = true; // Lock selection after correct answer
             this.nextButton.disabled = false;
             options.forEach(option => option.classList.add("disabled")); // Disable all options after correct answer
         } else {
             this.feedback.className = "feedback incorrect";
             selectedOptionElement.classList.add("incorrect");
-            this.answered = false; // Allow re-selection
+            this.answered = true; // Mark as answered (incorrectly on first attempt)
             this.nextButton.disabled = true;
             selectedOptionElement.classList.add("disabled"); // Disable only the incorrect selected option
         }
@@ -181,14 +193,14 @@ class QuizApp {
         this.quizArea.style.display = "none";
         this.resultsArea.style.display = "block";
         
-        this.scoreElement.textContent = this.score;
+        this.scoreElement.textContent = this.firstAttemptCorrect; // Display first attempt correct score
         this.totalQuestionsElement.textContent = this.questions.length;
         
         // Clear saved progress
         localStorage.removeItem("quizProgress");
         
         // Add celebration effect for good scores
-        const percentage = (this.score / this.questions.length) * 100;
+        const percentage = (this.firstAttemptCorrect / this.questions.length) * 100;
         if (percentage >= 80) {
             this.resultsArea.style.background = "linear-gradient(135deg, #28a745, #20c997)";
             this.resultsArea.style.color = "white";
@@ -200,6 +212,7 @@ class QuizApp {
     restartQuiz() {
         this.currentQuestionIndex = 0;
         this.score = 0;
+        this.firstAttemptCorrect = 0; // Reset first attempt correct score
         this.selectedAnswer = null;
         this.answered = false;
         
@@ -210,7 +223,8 @@ class QuizApp {
         this.resultsArea.style.borderRadius = "";
         this.resultsArea.style.padding = "";
         
-        // Shuffle questions again for variety
+        // Reset answeredCorrectlyOnFirstAttempt for all questions and shuffle
+        this.questions.forEach(q => q.answeredCorrectlyOnFirstAttempt = false);
         this.shuffleArray(this.questions);
         
         this.displayQuestion();
@@ -221,6 +235,7 @@ class QuizApp {
         const progress = {
             currentQuestionIndex: this.currentQuestionIndex,
             score: this.score,
+            firstAttemptCorrect: this.firstAttemptCorrect, // Save first attempt correct score
             timestamp: Date.now()
         };
         localStorage.setItem("quizProgress", JSON.stringify(progress));
@@ -236,6 +251,7 @@ class QuizApp {
             if (hoursSinceLastSave < 24) {
                 this.currentQuestionIndex = progress.currentQuestionIndex;
                 this.score = progress.score;
+                this.firstAttemptCorrect = progress.firstAttemptCorrect || 0; // Load first attempt correct score
             }
         }
     }
