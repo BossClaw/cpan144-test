@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Next.js Project Quiz</title>
+		<link
+			rel="stylesheet"
+			href="style.css"
+		/>
+	</head>
+	<body>
+		<div class="quiz-container">
+			<h1>Next.js Project Quiz</h1>
+			<div id="quiz-area">
+				<div id="progress-bar">
+					<div id="question-progress"></div>
+
+					<div id="question-category"></div>
+				</div>
+
+				<div id="question-text"></div>
+				<div
+					id="options-container"
+					class="options-container"
+				></div>
+				<button id="next-button">Next Question</button>
+				<div id="feedback"></div>
+			</div>
+			<div
+				id="results-area"
+				style="display: none"
+			>
+				<h2>Quiz Results</h2>
+				<p>You scored <span id="score"></span> out of <span id="total-questions"></span>!</p>
+				<button id="restart-button">Restart Quiz</button>
+			</div>
+		</div>
+		<script src="script.js"></script>
+	</body>
+</html>

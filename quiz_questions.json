@@ -1,0 +1,1278 @@
+[
+  {
+    "category": "Project Structure",
+    "questions": [
+      {
+        "question": "What is the primary purpose of the `page.js` file in the root directory?",
+        "options": [
+          {
+            "text": "It defines the main query page for searching recipes.",
+            "is_correct": true,
+            "explanation": "The `page.js` in the root directory is the entry point for the main recipe search functionality."
+          },
+          {
+            "text": "It handles user authentication and login.",
+            "is_correct": false,
+            "explanation": "User authentication is not implemented in this project, and `page.js` is focused on recipe search."
+          },
+          {
+            "text": "It stores global CSS styles for the application.",
+            "is_correct": false,
+            "explanation": "Global CSS styles are defined in `globals.css`, not `page.js`."
+          },
+          {
+            "text": "It manages the application's routing logic.",
+            "is_correct": false,
+            "explanation": "Next.js handles routing based on file-system, not explicitly in `page.js`."
+          }
+        ]
+      },
+      {
+        "question": "Where are the reusable UI components like `FormQuery` and `RecipeList` located?",
+        "options": [
+          {
+            "text": "`/components` directory.",
+            "is_correct": true,
+            "explanation": "The `/components` directory is the standard place for reusable UI components in Next.js projects."
+          },
+          {
+            "text": "`/utils` directory.",
+            "is_correct": false,
+            "explanation": "The `/utils` directory is typically for utility functions, not UI components."
+          },
+          {
+            "text": "`/contexts` directory.",
+            "is_correct": false,
+            "explanation": "The `/contexts` directory is for React Context API files."
+          },
+          {
+            "text": "`/pages` directory.",
+            "is_correct": false,
+            "explanation": "In Next.js, `/pages` (or `app` in newer versions) defines routes, not reusable components."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of the `globals.css` file?",
+        "options": [
+          {
+            "text": "To define global CSS styles for the entire application.",
+            "is_correct": true,
+            "explanation": "`globals.css` is used to apply styles globally across the Next.js application."
+          },
+          {
+            "text": "To store component-specific styles.",
+            "is_correct": false,
+            "explanation": "Component-specific styles are usually defined within the component files or separate CSS modules."
+          },
+          {
+            "text": "To manage JavaScript utility functions.",
+            "is_correct": false,
+            "explanation": "JavaScript utility functions are stored in the `/utils` directory."
+          },
+          {
+            "text": "To configure the Next.js server.",
+            "is_correct": false,
+            "explanation": "Next.js server configuration is typically handled in `next.config.js` or implicitly by the framework."
+          }
+        ]
+      },
+      {
+        "question": "Which file is responsible for managing the application's favorite recipes state?",
+        "options": [
+          {
+            "text": "`/contexts/FavoritesContext.js`.",
+            "is_correct": true,
+            "explanation": "The `FavoritesContext.js` file uses React Context API to manage the global state of favorite recipes."
+          },
+          {
+            "text": "`/components/FormFavorites.js`.",
+            "is_correct": false,
+            "explanation": "`FormFavorites.js` is a component that interacts with favorites, but doesn't manage the state itself."
+          },
+          {
+            "text": "`/favorites/page.js`.",
+            "is_correct": false,
+            "explanation": "`/favorites/page.js` is a route that displays favorite recipes, but the state management is in the context."
+          },
+          {
+            "text": "`/utils/utils.js`.",
+            "is_correct": false,
+            "explanation": "`utils.js` contains general utility functions, not specific state management for favorites."
+          }
+        ]
+      },
+      {
+        "question": "What is the role of the `layout.js` file in a Next.js project?",
+        "options": [
+          {
+            "text": "It defines the shared UI for a route segment and its children.",
+            "is_correct": true,
+            "explanation": "`layout.js` in Next.js App Router defines a shared UI that applies to a route segment and its nested children."
+          },
+          {
+            "text": "It contains the main application logic for data fetching.",
+            "is_correct": false,
+            "explanation": "Data fetching logic is typically within page or component files, not `layout.js`."
+          },
+          {
+            "text": "It specifies the API endpoints for the application.",
+            "is_correct": false,
+            "explanation": "API endpoints are defined in separate API routes or external services."
+          },
+          {
+            "text": "It manages the application's database connections.",
+            "is_correct": false,
+            "explanation": "Database connections are handled on the backend, not in frontend layout files."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Core Functionality - Recipe Search",
+    "questions": [
+      {
+        "question": "Which state variable in `page.js` is responsible for storing the fetched recipes?",
+        "options": [
+          {
+            "text": "`recipes`",
+            "is_correct": true,
+            "explanation": "The `recipes` state variable holds the array of recipe objects returned from the API."
+          },
+          {
+            "text": "`loading`",
+            "is_correct": false,
+            "explanation": "`loading` indicates whether an API call is in progress."
+          },
+          {
+            "text": "`error`",
+            "is_correct": false,
+            "explanation": "`error` stores any error messages encountered during the API call."
+          },
+          {
+            "text": "`offset`",
+            "is_correct": false,
+            "explanation": "`offset` is used for pagination, tracking the starting point for the next set of results."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of the `searchRecipes` function in `page.js`?",
+        "options": [
+          {
+            "text": "To make an API call to fetch recipes based on query parameters.",
+            "is_correct": true,
+            "explanation": "The `searchRecipes` function encapsulates the logic for calling the Spoonacular API and updating the UI with the results."
+          },
+          {
+            "text": "To filter recipes already present in the `recipes` state.",
+            "is_correct": false,
+            "explanation": "Filtering of existing recipes is not the primary function of `searchRecipes`; it fetches new data."
+          },
+          {
+            "text": "To handle user input from the search form.",
+            "is_correct": false,
+            "explanation": "User input from the search form is handled by `FormQuery` and passed to `searchRecipes`."
+          },
+          {
+            "text": "To display individual recipe details.",
+            "is_correct": false,
+            "explanation": "Displaying individual recipe details is handled by `RecipeView`."
+          }
+        ]
+      },
+      {
+        "question": "How is the API key accessed in `page.js` for making API requests?",
+        "options": [
+          {
+            "text": "`process.env.NEXT_PUBLIC_API_KEY`",
+            "is_correct": true,
+            "explanation": "Next.js uses `process.env.NEXT_PUBLIC_` prefix to expose environment variables to the client-side bundle."
+          },
+          {
+            "text": "`localStorage.getItem('API_KEY')`",
+            "is_correct": false,
+            "explanation": "API keys are typically not stored in local storage for security reasons."
+          },
+          {
+            "text": "Hardcoded directly in the `searchRecipes` function.",
+            "is_correct": false,
+            "explanation": "Hardcoding sensitive information like API keys is bad practice."
+          },
+          {
+            "text": "Passed as a prop from a parent component.",
+            "is_correct": false,
+            "explanation": "While possible, environment variables are the standard way to handle API keys in Next.js."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of the `MAX_QUERY_NUMBER` constant in `page.js`?",
+        "options": [
+          {
+            "text": "It limits the number of recipes fetched per API request.",
+            "is_correct": true,
+            "explanation": "`MAX_QUERY_NUMBER` ensures that each API call retrieves a fixed number of recipes, which is important for pagination."
+          },
+          {
+            "text": "It defines the maximum number of search queries a user can make.",
+            "is_correct": false,
+            "explanation": "It controls the API response size, not the number of user queries."
+          },
+          {
+            "text": "It sets the maximum cooking time for recipes.",
+            "is_correct": false,
+            "explanation": "Maximum cooking time is a search parameter, not controlled by `MAX_QUERY_NUMBER`."
+          },
+          {
+            "text": "It represents the total number of recipes available in the database.",
+            "is_correct": false,
+            "explanation": "`totalResults` state variable holds the total number of recipes, not `MAX_QUERY_NUMBER`."
+          }
+        ]
+      },
+      {
+        "question": "How does the `loadMoreRecipes` function work in conjunction with `searchRecipes`?",
+        "options": [
+          {
+            "text": "It calls `searchRecipes` with an updated `offset` to fetch the next set of results.",
+            "is_correct": true,
+            "explanation": "`loadMoreRecipes` increments the `offset` and re-calls `searchRecipes` to append more results to the existing list."
+          },
+          {
+            "text": "It re-fetches all recipes from the beginning.",
+            "is_correct": false,
+            "explanation": "Re-fetching all recipes would be inefficient; `loadMoreRecipes` is for incremental loading."
+          },
+          {
+            "text": "It clears the current recipe list and fetches new ones.",
+            "is_correct": false,
+            "explanation": "Clearing the list is done when a new search query is initiated, not for loading more."
+          },
+          {
+            "text": "It sorts the currently displayed recipes.",
+            "is_correct": false,
+            "explanation": "Sorting is a separate functionality, usually handled by form parameters."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of the `hasMore` state variable in `page.js`?",
+        "options": [
+          {
+            "text": "To control the visibility of the 'Load More Recipes' button.",
+            "is_correct": true,
+            "explanation": "`hasMore` is a boolean that determines whether there are more results to fetch, thus controlling the display of the 'Load More' button."
+          },
+          {
+            "text": "To indicate if the current search query has returned any results.",
+            "is_correct": false,
+            "explanation": "`recipes.length === 0` and `currentQuery` are used to check if results were returned."
+          },
+          {
+            "text": "To store the total number of available recipes.",
+            "is_correct": false,
+            "explanation": "`totalResults` stores the total number of recipes."
+          },
+          {
+            "text": "To track the number of times the 'Load More' button has been clicked.",
+            "is_correct": false,
+            "explanation": "The `offset` state variable indirectly tracks the progress of loading more results."
+          }
+        ]
+      },
+      {
+        "question": "When is the `offset` state variable reset to 0 in `page.js`?",
+        "options": [
+          {
+            "text": "When a new search query is initiated (not a 'Load More' action).",
+            "is_correct": true,
+            "explanation": "When a new search is performed, the `offset` is reset to 0 to start fetching results from the beginning."
+          },
+          {
+            "text": "After every API call, regardless of the action.",
+            "is_correct": false,
+            "explanation": "Resetting `offset` after every API call would prevent proper pagination for 'Load More' functionality."
+          },
+          {
+            "text": "When the 'Load More Recipes' button is clicked.",
+            "is_correct": false,
+            "explanation": "When 'Load More' is clicked, `offset` is updated, not reset, to fetch the next batch."
+          },
+          {
+            "text": "When the `recipes` array becomes empty.",
+            "is_correct": false,
+            "explanation": "The `offset` is related to the API call's starting point, not directly to the emptiness of the `recipes` array."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Form Handling - FormQuery.js",
+    "questions": [
+      {
+        "question": "What is the primary purpose of the `FormQuery` component?",
+        "options": [
+          {
+            "text": "To provide a user interface for inputting recipe search criteria.",
+            "is_correct": true,
+            "explanation": "`FormQuery` renders the various input fields and dropdowns that allow users to specify their recipe search preferences."
+          },
+          {
+            "text": "To display the search results in a list format.",
+            "is_correct": false,
+            "explanation": "Displaying search results is the responsibility of the `RecipeList` component."
+          },
+          {
+            "text": "To manage the application's routing.",
+            "is_correct": false,
+            "explanation": "Routing is handled by Next.js's file-system based routing."
+          },
+          {
+            "text": "To store and retrieve favorite recipes.",
+            "is_correct": false,
+            "explanation": "Favorite recipe management is handled by `FavoritesContext`."
+          }
+        ]
+      },
+      {
+        "question": "How does `FormQuery` communicate the search parameters to its parent component (`page.js`)?",
+        "options": [
+          {
+            "text": "Through the `onSearch` prop.",
+            "is_correct": true,
+            "explanation": "The `onSearch` prop is a function passed from `page.js` to `FormQuery`, which `FormQuery` calls with the collected search parameters when the form is submitted."
+          },
+          {
+            "text": "By directly modifying the parent's state.",
+            "is_correct": false,
+            "explanation": "Directly modifying a parent's state from a child component is generally discouraged in React; props and callbacks are preferred."
+          },
+          {
+            "text": "Using React Context API.",
+            "is_correct": false,
+            "explanation": "While Context API is used for favorites, it's not used for passing search parameters in this case."
+          },
+          {
+            "text": "Via a global event listener.",
+            "is_correct": false,
+            "explanation": "Global event listeners are not the standard React way for parent-child communication."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of the `formData` state variable in `FormQuery.js`?",
+        "options": [
+          {
+            "text": "To store the current values of the form input fields.",
+            "is_correct": true,
+            "explanation": "`formData` is a state object that holds the values entered by the user in the various form fields, making the form a controlled component."
+          },
+          {
+            "text": "To store the list of available cuisine options.",
+            "is_correct": false,
+            "explanation": "Cuisine options are stored in the `cuisineOptions` array."
+          },
+          {
+            "text": "To track whether the form is currently submitting.",
+            "is_correct": false,
+            "explanation": "The `loading` prop is used to indicate submission status."
+          },
+          {
+            "text": "To store the search results after submission.",
+            "is_correct": false,
+            "explanation": "Search results are handled by the parent component (`page.js`)."
+          }
+        ]
+      },
+      {
+        "question": "Which function is responsible for updating the `formData` state when an input field changes?",
+        "options": [
+          {
+            "text": "`handleInputChange`",
+            "is_correct": true,
+            "explanation": "`handleInputChange` is an event handler that updates the `formData` state whenever a change occurs in an input element."
+          },
+          {
+            "text": "`handleSubmit`",
+            "is_correct": false,
+            "explanation": "`handleSubmit` is called when the form is submitted, not when individual inputs change."
+          },
+          {
+            "text": "`onSearch`",
+            "is_correct": false,
+            "explanation": "`onSearch` is a prop function passed from the parent to initiate a search."
+          },
+          {
+            "text": "`handleReset`",
+            "is_correct": false,
+            "explanation": "`handleReset` is used to clear the form fields."
+          }
+        ]
+      },
+      {
+        "question": "What happens when the 'Reset' button is clicked in `FormQuery`?",
+        "options": [
+          {
+            "text": "The `formData` state is reset to its initial empty values.",
+            "is_correct": true,
+            "explanation": "The `handleReset` function sets the `formData` state back to its default empty or initial values, clearing the form."
+          },
+          {
+            "text": "A new API search is triggered with empty parameters.",
+            "is_correct": false,
+            "explanation": "Resetting the form does not automatically trigger a search; the user must click 'Search Recipes' again."
+          },
+          {
+            "text": "The entire page is reloaded.",
+            "is_correct": false,
+            "explanation": "Resetting the form is a client-side operation and does not require a full page reload."
+          },
+          {
+            "text": "The `onSearch` prop is called with the current form data.",
+            "is_correct": false,
+            "explanation": "`onSearch` is called by `handleSubmit`, not `handleReset`."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Recipe Display - RecipeList.js & RecipeView.js",
+    "questions": [
+      {
+        "question": "What is the main responsibility of the `RecipeList` component?",
+        "options": [
+          {
+            "text": "To render a grid of individual `RecipeView` components.",
+            "is_correct": true,
+            "explanation": "`RecipeList` takes an array of recipes and maps over them to create and display multiple `RecipeView` components in a structured layout."
+          },
+          {
+            "text": "To fetch recipes from the API.",
+            "is_correct": false,
+            "explanation": "Fetching recipes is handled by `page.js`."
+          },
+          {
+            "text": "To manage the favorite recipes state.",
+            "is_correct": false,
+            "explanation": "Favorite recipe state is managed by `FavoritesContext`."
+          },
+          {
+            "text": "To handle user input for searching recipes.",
+            "is_correct": false,
+            "explanation": "User input for searching is handled by `FormQuery`."
+          }
+        ]
+      },
+      {
+        "question": "How does `RecipeList` determine if a recipe is a favorite?",
+        "options": [
+          {
+            "text": "By checking if the recipe's ID exists in the `favorites` array passed as a prop.",
+            "is_correct": true,
+            "explanation": "The `isFavorite` function within `RecipeList` iterates through the `favorites` array (passed from `page.js`) to see if the current recipe's ID matches any favorite recipe ID."
+          },
+          {
+            "text": "By making a separate API call for each recipe.",
+            "is_correct": false,
+            "explanation": "Making an API call for each recipe would be highly inefficient."
+          },
+          {
+            "text": "By reading a cookie from the browser.",
+            "is_correct": false,
+            "explanation": "Favorite status is managed in React state, not directly from cookies."
+          },
+          {
+            "text": "It doesn't; `RecipeView` handles this logic.",
+            "is_correct": false,
+            "explanation": "`RecipeList` passes the `isFavorite` status to `RecipeView`."
+          }
+        ]
+      },
+      {
+        "question": "What is the role of the `onToggleFavorite` prop passed to `RecipeList` and then to `RecipeView`?",
+        "options": [
+          {
+            "text": "It's a callback function to add or remove a recipe from favorites.",
+            "is_correct": true,
+            "explanation": "`onToggleFavorite` is a function defined in `page.js` and passed down, allowing `RecipeView` to trigger updates to the `favorites` state when the favorite button is clicked."
+          },
+          {
+            "text": "It displays a confirmation message when a recipe is favorited.",
+            "is_correct": false,
+            "explanation": "Displaying confirmation messages is a separate UI concern."
+          },
+          {
+            "text": "It sorts the recipes based on their favorite status.",
+            "is_correct": false,
+            "explanation": "Sorting is not the purpose of `onToggleFavorite`."
+          },
+          {
+            "text": "It fetches the details of a favorite recipe.",
+            "is_correct": false,
+            "explanation": "Fetching details is done when viewing a recipe, not when toggling favorite status."
+          }
+        ]
+      },
+      {
+        "question": "What information does the `RecipeView` component primarily display?",
+        "options": [
+          {
+            "text": "Individual recipe details like image, title, and a favorite button.",
+            "is_correct": true,
+            "explanation": "`RecipeView` is responsible for rendering the visual representation of a single recipe, including its key information and interactive elements."
+          },
+          {
+            "text": "A list of all available cuisines.",
+            "is_correct": false,
+            "explanation": "Cuisine options are part of the `FormQuery` component."
+          },
+          {
+            "text": "The total number of search results.",
+            "is_correct": false,
+            "explanation": "The total number of search results is displayed in `page.js`."
+          },
+          {
+            "text": "User login and registration forms.",
+            "is_correct": false,
+            "explanation": "User authentication is not part of this project."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of the `showFavoriteButton` prop in `RecipeList` and `RecipeView`?",
+        "options": [
+          {
+            "text": "To conditionally render the favorite button for each recipe.",
+            "is_correct": true,
+            "explanation": "`showFavoriteButton` is a boolean prop that allows the application to control whether the favorite button is visible or hidden for recipes, depending on the context (e.g., on the main search page vs. a dedicated favorites page)."
+          },
+          {
+            "text": "To change the color of the favorite button.",
+            "is_correct": false,
+            "explanation": "Styling is typically handled by CSS classes, not this prop."
+          },
+          {
+            "text": "To trigger an animation when a recipe is favorited.",
+            "is_correct": false,
+            "explanation": "Animations would require separate libraries or CSS transitions."
+          },
+          {
+            "text": "To count how many times a recipe has been favorited.",
+            "is_correct": false,
+            "explanation": "Counting favorites would require a different state or database interaction."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Context API - FavoritesContext.js",
+    "questions": [
+      {
+        "question": "What is the primary function of `FavoritesContext.js`?",
+        "options": [
+          {
+            "text": "To provide a global state for managing favorite recipes across the application.",
+            "is_correct": true,
+            "explanation": "`FavoritesContext.js` uses React's Context API to create a centralized store for favorite recipes, making them accessible to any component wrapped within its provider."
+          },
+          {
+            "text": "To fetch favorite recipes from a backend API.",
+            "is_correct": false,
+            "explanation": "This context manages client-side state; fetching from a backend would require additional API calls."
+          },
+          {
+            "text": "To display a list of favorite recipes.",
+            "is_correct": false,
+            "explanation": "Displaying the list is done by components like `RecipeList` and `RecipeView`."
+          },
+          {
+            "text": "To handle user login for favorite recipe management.",
+            "is_correct": false,
+            "explanation": "User login is not implemented in this project."
+          }
+        ]
+      },
+      {
+        "question": "How do components access the `favorites` state and `addToFavorites`/`removeFromFavorites` functions?",
+        "options": [
+          {
+            "text": "By using the `useFavorites` custom hook.",
+            "is_correct": true,
+            "explanation": "The `useFavorites` custom hook, exported from `FavoritesContext.js`, provides a convenient way for functional components to consume the context's values."
+          },
+          {
+            "text": "By passing them as props through every component in the tree.",
+            "is_correct": false,
+            "explanation": "Passing props through every component (prop drilling) is what Context API aims to avoid."
+          },
+          {
+            "text": "By directly importing them from `page.js`.",
+            "is_correct": false,
+            "explanation": "`page.js` uses the context, but doesn't export its internal state or functions for direct import by other components."
+          },
+          {
+            "text": "They are automatically available globally.",
+            "is_correct": false,
+            "explanation": "While Context provides global-like access, it still requires consumption through `useContext` or a custom hook."
+          }
+        ]
+      },
+      {
+        "question": "What happens when `addToFavorites(recipe)` is called?",
+        "options": [
+          {
+            "text": "The provided `recipe` object is added to the `favorites` array state.",
+            "is_correct": true,
+            "explanation": "The `addToFavorites` function updates the `favorites` state by appending the new recipe to the existing array."
+          },
+          {
+            "text": "The recipe is saved to a database.",
+            "is_correct": false,
+            "explanation": "This project uses client-side state for favorites, not a database."
+          },
+          {
+            "text": "The recipe is immediately displayed on the favorites page.",
+            "is_correct": false,
+            "explanation": "The favorites page will update automatically if it's consuming the context, but the function itself just updates the state."
+          },
+          {
+            "text": "The `favorites` array is cleared.",
+            "is_correct": false,
+            "explanation": "Clearing the array is done by `removeFromFavorites` or a reset function, not `addToFavorites`."
+          }
+        ]
+      },
+      {
+        "question": "How does `removeFromFavorites(recipeId)` identify which recipe to remove?",
+        "options": [
+          {
+            "text": "By filtering the `favorites` array based on the provided `recipeId`.",
+            "is_correct": true,
+            "explanation": "The `removeFromFavorites` function creates a new array containing all favorite recipes *except* the one whose ID matches the `recipeId` passed to the function."
+          },
+          {
+            "text": "By iterating through the DOM elements and removing the corresponding recipe.",
+            "is_correct": false,
+            "explanation": "DOM manipulation is not how React state is updated; state changes trigger re-renders."
+          },
+          {
+            "text": "By sending a delete request to an API endpoint.",
+            "is_correct": false,
+            "explanation": "This project manages favorites client-side, without a backend API for persistence."
+          },
+          {
+            "text": "It removes the last added recipe from the array.",
+            "is_correct": false,
+            "explanation": "It removes a specific recipe by ID, not necessarily the last one."
+          }
+        ]
+      },
+      {
+        "question": "Why is `FavoritesContext` wrapped around the main application components?",
+        "options": [
+          {
+            "text": "To make the `favorites` state and related functions available to all nested components.",
+            "is_correct": true,
+            "explanation": "By wrapping components with `FavoritesContext.Provider`, all components within its tree can access the context's value (favorites state and functions) without prop drilling."
+          },
+          {
+            "text": "To prevent other components from accessing favorite recipe data.",
+            "is_correct": false,
+            "explanation": "The purpose of Context API is to *share* data, not restrict access."
+          },
+          {
+            "text": "To improve the performance of API calls.",
+            "is_correct": false,
+            "explanation": "Context API is for state management, not directly for API call performance."
+          },
+          {
+            "text": "To define the application's global CSS styles.",
+            "is_correct": false,
+            "explanation": "Global CSS styles are defined in `globals.css`."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Utility Functions - utils/utils.js",
+    "questions": [
+      {
+        "question": "What is the general purpose of the `/utils` directory?",
+        "options": [
+          {
+            "text": "To store helper functions and utilities that can be reused across the application.",
+            "is_correct": true,
+            "explanation": "The `/utils` directory is a common convention for organizing small, reusable functions that perform specific tasks and don't belong to a particular component or context."
+          },
+          {
+            "text": "To define API routes for the backend.",
+            "is_correct": false,
+            "explanation": "API routes are typically in an `api` directory in Next.js."
+          },
+          {
+            "text": "To store database schemas.",
+            "is_correct": false,
+            "explanation": "Database schemas are backend concerns."
+          },
+          {
+            "text": "To manage application-wide state.",
+            "is_correct": false,
+            "explanation": "Application-wide state is managed by Context API or state management libraries."
+          }
+        ]
+      },
+      {
+        "question": "Based on the project structure, what kind of functions would you expect to find in `utils/utils.js`?",
+        "options": [
+          {
+            "text": "Functions for data formatting, validation, or common calculations.",
+            "is_correct": true,
+            "explanation": "Utility files typically contain functions that perform generic tasks like formatting dates, validating inputs, or simple calculations that are not tied to specific UI components."
+          },
+          {
+            "text": "React component definitions.",
+            "is_correct": false,
+            "explanation": "React components are stored in the `/components` directory."
+          },
+          {
+            "text": "API key management logic.",
+            "is_correct": false,
+            "explanation": "API key access is handled via environment variables."
+          },
+          {
+            "text": "Database query functions.",
+            "is_correct": false,
+            "explanation": "Database query functions are backend-related."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Next.js Specifics",
+    "questions": [
+      {
+        "question": "What does `'use client'` at the top of `page.js` signify in Next.js?",
+        "options": [
+          {
+            "text": "It marks the component as a Client Component, enabling interactivity.",
+            "is_correct": true,
+            "explanation": "`'use client'` is a directive in Next.js App Router that tells React to render the component and its children on the client side, allowing for interactivity and hooks like `useState` and `useEffect`."
+          },
+          {
+            "text": "It indicates that the page should only be rendered on the server.",
+            "is_correct": false,
+            "explanation": "Server Components are the default; `'use client'` opts into client-side rendering."
+          },
+          {
+            "text": "It's a comment with no functional impact.",
+            "is_correct": false,
+            "explanation": "It's a significant directive that changes rendering behavior."
+          },
+          {
+            "text": "It's a deprecated syntax and should be removed.",
+            "is_correct": false,
+            "explanation": "`'use client'` is a current and important feature in Next.js 13+ App Router."
+          }
+        ]
+      },
+      {
+        "question": "Why is `useEffect` used in `page.js` (even though it's commented out in the provided snippet)?",
+        "options": [
+          {
+            "text": "To perform side effects like data fetching or DOM manipulation after rendering.",
+            "is_correct": true,
+            "explanation": "`useEffect` is a React Hook that lets you synchronize a component with an external system. It's commonly used for data fetching, subscriptions, or manually changing the DOM."
+          },
+          {
+            "text": "To define the initial state of variables.",
+            "is_correct": false,
+            "explanation": "`useState` is used for defining initial state."
+          },
+          {
+            "text": "To handle user events like clicks or form submissions.",
+            "is_correct": false,
+            "explanation": "Event handlers are used for user interactions."
+          },
+          {
+            "text": "To create a new React component.",
+            "is_correct": false,
+            "explanation": "`useEffect` is a hook used within components, not for creating them."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of `useState` in React/Next.js components?",
+        "options": [
+          {
+            "text": "To add state variables to functional components.",
+            "is_correct": true,
+            "explanation": "`useState` is a React Hook that lets you add a state variable to your component. It returns a pair: the current state value and a function that lets you update it."
+          },
+          {
+            "text": "To perform API calls.",
+            "is_correct": false,
+            "explanation": "API calls are typically initiated within `useEffect` or event handlers, and their results update state."
+          },
+          {
+            "text": "To define global variables accessible everywhere.",
+            "is_correct": false,
+            "explanation": "`useState` creates component-specific state; Context API is for global state."
+          },
+          {
+            "text": "To handle routing between different pages.",
+            "is_correct": false,
+            "explanation": "Routing is handled by Next.js's file-system based routing."
+          }
+        ]
+      },
+      {
+        "question": "How does Next.js handle environment variables like `NEXT_PUBLIC_API_KEY`?",
+        "options": [
+          {
+            "text": "Variables prefixed with `NEXT_PUBLIC_` are exposed to the client-side bundle.",
+            "is_correct": true,
+            "explanation": "Next.js automatically makes environment variables starting with `NEXT_PUBLIC_` available in the browser, allowing them to be used in client-side code."
+          },
+          {
+            "text": "All environment variables are accessible on both client and server.",
+            "is_correct": false,
+            "explanation": "Only `NEXT_PUBLIC_` variables are exposed to the client; others are server-only by default."
+          },
+          {
+            "text": "They must be manually injected into the HTML.",
+            "is_correct": false,
+            "explanation": "Next.js handles the injection automatically."
+          },
+          {
+            "text": "They are only available during the build process.",
+            "is_correct": false,
+            "explanation": "They are available at runtime, both on the server and client (for `NEXT_PUBLIC_` ones)."
+          }
+        ]
+      },
+      {
+        "question": "What is the benefit of using the App Router (`app` directory) in Next.js compared to the Pages Router (`pages` directory)?",
+        "options": [
+          {
+            "text": "Improved performance with Server Components and nested layouts.",
+            "is_correct": true,
+            "explanation": "The App Router introduces React Server Components, streaming, and nested layouts, which can lead to better performance and a more organized project structure."
+          },
+          {
+            "text": "Simpler routing configuration for all use cases.",
+            "is_correct": false,
+            "explanation": "While powerful, the App Router can be more complex for simple cases due to new paradigms."
+          },
+          {
+            "text": "Automatic database integration without external libraries.",
+            "is_correct": false,
+            "explanation": "Next.js does not provide automatic database integration; external libraries are still needed."
+          },
+          {
+            "text": "Built-in support for all CSS preprocessors.",
+            "is_correct": false,
+            "explanation": "Next.js supports various CSS approaches, but this is not a unique benefit of the App Router."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "API Interaction",
+    "questions": [
+      {
+        "question": "Which API is being used to fetch recipe data in this project?",
+        "options": [
+          {
+            "text": "Spoonacular API (via apilayer.com).",
+            "is_correct": true,
+            "explanation": "The `url` variable in `searchRecipes` clearly indicates `https://api.apilayer.com/spoonacular` as the base URL for the recipe API."
+          },
+          {
+            "text": "OpenWeatherMap API.",
+            "is_correct": false,
+            "explanation": "OpenWeatherMap is for weather data, not recipes."
+          },
+          {
+            "text": "Google Maps API.",
+            "is_correct": false,
+            "explanation": "Google Maps API is for mapping and location services."
+          },
+          {
+            "text": "A custom backend API developed for this project.",
+            "is_correct": false,
+            "explanation": "The project directly calls an external API, not a custom backend."
+          }
+        ]
+      },
+      {
+        "question": "How are API request headers, specifically the `apikey`, set for the `fetch` call?",
+        "options": [
+          {
+            "text": "In the `headers` object within the `fetch` options.",
+            "is_correct": true,
+            "explanation": "The `fetch` function allows you to pass an options object, and the `headers` property within that object is used to set custom request headers like the API key."
+          },
+          {
+            "text": "As part of the URL query parameters.",
+            "is_correct": false,
+            "explanation": "API keys are typically sent in headers for security and proper API usage, not as query parameters."
+          },
+          {
+            "text": "Using `localStorage.setItem` before the fetch.",
+            "is_correct": false,
+            "explanation": "`localStorage` is for client-side storage, not for setting request headers."
+          },
+          {
+            "text": "Through a global Axios interceptor.",
+            "is_correct": false,
+            "explanation": "Axios is a different HTTP client library; this project uses the native `fetch` API."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of `URLSearchParams` when constructing the API URL?",
+        "options": [
+          {
+            "text": "To correctly format and encode query parameters for the URL.",
+            "is_correct": true,
+            "explanation": "`URLSearchParams` is a Web API interface that provides utility methods for working with the query string of a URL, ensuring parameters are properly encoded."
+          },
+          {
+            "text": "To parse the API response data.",
+            "is_correct": false,
+            "explanation": "Parsing API response data is done using `response.json()`."
+          },
+          {
+            "text": "To define the base URL of the API.",
+            "is_correct": false,
+            "explanation": "The base URL is a separate string, not handled by `URLSearchParams`."
+          },
+          {
+            "text": "To handle asynchronous API requests.",
+            "is_correct": false,
+            "explanation": "Asynchronous requests are handled by `async/await` and the `fetch` API."
+          }
+        ]
+      },
+      {
+        "question": "How does the `searchRecipes` function handle errors during the API call?",
+        "options": [
+          {
+            "text": "It uses a `try...catch` block to catch exceptions and sets an `error` state.",
+            "is_correct": true,
+            "explanation": "The `try...catch` block wraps the `fetch` call, allowing any network errors or non-OK HTTP responses to be caught, and the `error` state is updated to display a message to the user."
+          },
+          {
+            "text": "It reloads the page automatically.",
+            "is_correct": false,
+            "explanation": "Reloading the page on error is generally not a good user experience."
+          },
+          {
+            "text": "It ignores errors and continues execution.",
+            "is_correct": false,
+            "explanation": "Ignoring errors would lead to a broken user experience."
+          },
+          {
+            "text": "It logs errors to the server console only.",
+            "is_correct": false,
+            "explanation": "Errors are logged to the client-side console and displayed in the UI."
+          }
+        ]
+      },
+      {
+        "question": "What is the significance of `response.ok` in the `searchRecipes` function?",
+        "options": [
+          {
+            "text": "It indicates if the HTTP response status code is in the 200-299 range.",
+            "is_correct": true,
+            "explanation": "The `response.ok` property of a Fetch API Response object is a boolean that indicates whether the HTTP status code is in the 200-299 range, signifying a successful response."
+          },
+          {
+            "text": "It checks if the API key is valid.",
+            "is_correct": false,
+            "explanation": "`response.ok` checks the HTTP status, not the validity of the API key itself."
+          },
+          {
+            "text": "It confirms that the response body is not empty.",
+            "is_correct": false,
+            "explanation": "An empty response body can still have an `ok` status."
+          },
+          {
+            "text": "It verifies the data type of the API response.",
+            "is_correct": false,
+            "explanation": "Data type verification happens after parsing the JSON response."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Styling and UI",
+    "questions": [
+      {
+        "question": "Which CSS framework is primarily used for styling in this Next.js project?",
+        "options": [
+          {
+            "text": "Tailwind CSS.",
+            "is_correct": true,
+            "explanation": "The `package.json` includes `tailwindcss` as a dev dependency, and the `className` attributes in the JSX use Tailwind's utility classes."
+          },
+          {
+            "text": "Bootstrap.",
+            "is_correct": false,
+            "explanation": "Bootstrap is not listed in `package.json` or used in the JSX."
+          },
+          {
+            "text": "Material-UI.",
+            "is_correct": false,
+            "explanation": "Material-UI is a React component library, not a CSS framework used here."
+          },
+          {
+            "text": "Custom CSS only.",
+            "is_correct": false,
+            "explanation": "While there's `globals.css`, the extensive use of utility classes points to a framework."
+          }
+        ]
+      },
+      {
+        "question": "How are responsive layouts achieved in this project (e.g., for `FormQuery` and `RecipeList`)?",
+        "options": [
+          {
+            "text": "Using Tailwind CSS responsive utility classes (e.g., `md:grid-cols-2`).",
+            "is_correct": true,
+            "explanation": "Tailwind CSS provides responsive prefixes like `md:` and `lg:` that allow you to apply styles conditionally based on screen size, enabling responsive grid layouts."
+          },
+          {
+            "text": "By writing custom media queries in `globals.css`.",
+            "is_correct": false,
+            "explanation": "While possible, the project primarily leverages Tailwind's built-in responsiveness."
+          },
+          {
+            "text": "Using a separate JavaScript library for responsive design.",
+            "is_correct": false,
+            "explanation": "No such library is evident in the `package.json` or code."
+          },
+          {
+            "text": "By dynamically adjusting styles with JavaScript based on window size.",
+            "is_correct": false,
+            "explanation": "This approach is less common for general layout responsiveness compared to CSS frameworks."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of the `loading` prop passed to `FormQuery` and used in `page.js`?",
+        "options": [
+          {
+            "text": "To disable the search button and display a loading indicator during API calls.",
+            "is_correct": true,
+            "explanation": "The `loading` prop is a boolean that, when true, disables the search button to prevent multiple submissions and often triggers the display of a visual loading spinner or text."
+          },
+          {
+            "text": "To control the number of recipes displayed.",
+            "is_correct": false,
+            "explanation": "The number of recipes displayed is controlled by the `recipes` array length."
+          },
+          {
+            "text": "To indicate if the application has finished loading all its assets.",
+            "is_correct": false,
+            "explanation": "This `loading` state is specific to the API call, not overall application asset loading."
+          },
+          {
+            "text": "To determine if the user is logged in.",
+            "is_correct": false,
+            "explanation": "User login is not part of this project's scope."
+          }
+        ]
+      },
+      {
+        "question": "How is the 'No Results' message conditionally displayed in `page.js`?",
+        "options": [
+          {
+            "text": "When `!loading`, `recipes.length === 0`, and `currentQuery` is present.",
+            "is_correct": true,
+            "explanation": "The 'No Results' message is shown only when no API call is in progress (`!loading`), the `recipes` array is empty, and a search query has actually been made (`currentQuery`)."
+          },
+          {
+            "text": "Always, regardless of search results.",
+            "is_correct": false,
+            "explanation": "Displaying it always would be incorrect and confusing."
+          },
+          {
+            "text": "Only when an error occurs during the API call.",
+            "is_correct": false,
+            "explanation": "Errors are handled separately; 'No Results' is for successful but empty searches."
+          },
+          {
+            "text": "When the `totalResults` state variable is 0.",
+            "is_correct": false,
+            "explanation": "While `totalResults` being 0 is a condition, the other conditions (`!loading`, `currentQuery`) are also necessary to avoid showing 'No Results' before any search or during loading."
+          }
+        ]
+      },
+      {
+        "question": "What is the purpose of the `container mx-auto px-4 py-8` classes in the main `div` of `page.js`?",
+        "options": [
+          {
+            "text": "To center the content horizontally, add horizontal padding, and vertical padding.",
+            "is_correct": true,
+            "explanation": "`container` sets a max-width and centers the content, `mx-auto` centers it horizontally, and `px-4 py-8` add padding on the x and y axes respectively, using Tailwind CSS utility classes."
+          },
+          {
+            "text": "To define a fixed-width container with a specific background color.",
+            "is_correct": false,
+            "explanation": "Background color is set by `bg-gray-50` on the `min-h-screen` div."
+          },
+          {
+            "text": "To create a flexbox layout for its children.",
+            "is_correct": false,
+            "explanation": "Flexbox is enabled by classes like `flex` or `grid`."
+          },
+          {
+            "text": "To hide the content on small screens.",
+            "is_correct": false,
+            "explanation": "These classes are for layout and spacing, not hiding content."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "General JavaScript/React Concepts",
+    "questions": [
+      {
+        "question": "What is the significance of `e.preventDefault()` in the `handleSubmit` function of `FormQuery.js`?",
+        "options": [
+          {
+            "text": "It stops the default browser behavior of reloading the page on form submission.",
+            "is_correct": true,
+            "explanation": "In web forms, the default behavior when a form is submitted is to reload the page. `e.preventDefault()` is crucial in React to prevent this, allowing JavaScript to handle the form submission asynchronously."
+          },
+          {
+            "text": "It prevents the form from being submitted if there are validation errors.",
+            "is_correct": false,
+            "explanation": "Validation errors would be handled by conditional logic before or after `e.preventDefault()`."
+          },
+          {
+            "text": "It clears all the input fields in the form.",
+            "is_correct": false,
+            "explanation": "Clearing input fields is done by resetting the state (`setFormData`)."
+          },
+          {
+            "text": "It prevents the `onSearch` function from being called.",
+            "is_correct": false,
+            "explanation": "It allows `onSearch` to be called without a page reload."
+          }
+        ]
+      },
+      {
+        "question": "What does the spread operator (`...`) do in `setRecipes((prev) => [...prev, ...data.results])`?",
+        "options": [
+          {
+            "text": "It creates a new array by combining the previous recipes with the new results.",
+            "is_correct": true,
+            "explanation": "The spread operator (`...`) is used to create a new array that includes all elements from the `prev` (previous recipes) array and all elements from the `data.results` (newly fetched recipes) array. This is a common pattern in React for immutably updating arrays in state."
+          },
+          {
+            "text": "It modifies the `prev` array in place.",
+            "is_correct": false,
+            "explanation": "The spread operator creates a new array, ensuring immutability, which is important for React's change detection."
+          },
+          {
+            "text": "It converts the `data.results` into a string.",
+            "is_correct": false,
+            "explanation": "It spreads array elements, not converts to string."
+          },
+          {
+            "text": "It removes duplicate recipes from the array.",
+            "is_correct": false,
+            "explanation": "Removing duplicates would require additional logic, not just the spread operator."
+          }
+        ]
+      },
+      {
+        "question": "What is a 'controlled component' in React, as exemplified by `FormQuery`?",
+        "options": [
+          {
+            "text": "An input form element whose value is controlled by React state.",
+            "is_correct": true,
+            "explanation": "A controlled component is an input form element whose value is driven by React state. The `formData` state in `FormQuery` and the `onChange` handler make it a controlled component, ensuring that React is the single source of truth for the input's value."
+          },
+          {
+            "text": "A component that renders only static content.",
+            "is_correct": false,
+            "explanation": "Controlled components are interactive and manage user input."
+          },
+          {
+            "text": "A component that does not use any state.",
+            "is_correct": false,
+            "explanation": "Controlled components explicitly use state to manage their values."
+          },
+          {
+            "text": "A component that can only be rendered on the server.",
+            "is_correct": false,
+            "explanation": "Controlled components are a React concept applicable to both client and server components."
+          }
+        ]
+      },
+      {
+        "question": "What is 'prop drilling' and how does React Context API help avoid it?",
+        "options": [
+          {
+            "text": "Prop drilling is passing props through many intermediate components; Context API provides a way to share values without explicit prop passing.",
+            "is_correct": true,
+            "explanation": "Prop drilling occurs when data is passed down through multiple nested components that don't directly need the data themselves. React Context API allows data to be shared directly with any component that consumes the context, bypassing intermediate components."
+          },
+          {
+            "text": "Prop drilling is a technique for optimizing component rendering; Context API makes it faster.",
+            "is_correct": false,
+            "explanation": "Prop drilling is generally considered an anti-pattern, not an optimization."
+          },
+          {
+            "text": "Prop drilling is a way to access DOM elements directly; Context API provides a safer alternative.",
+            "is_correct": false,
+            "explanation": "Accessing DOM elements directly is usually done with `useRef`."
+          },
+          {
+            "text": "Prop drilling is a method for handling form submissions; Context API simplifies form validation.",
+            "is_correct": false,
+            "explanation": "Prop drilling and Context API are related to data flow, not specifically form submissions or validation."
+          }
+        ]
+      },
+      {
+        "question": "What is the benefit of using a custom hook like `useFavorites`?",
+        "options": [
+          {
+            "text": "It encapsulates reusable stateful logic and makes it easy to share across components.",
+            "is_correct": true,
+            "explanation": "Custom hooks allow you to extract component logic into reusable functions. `useFavorites` encapsulates the logic for interacting with the `FavoritesContext`, making it clean and easy for any component to use favorite recipe functionality."
+          },
+          {
+            "text": "It replaces the need for React state entirely.",
+            "is_correct": false,
+            "explanation": "Custom hooks often use React's built-in hooks like `useState` and `useEffect` internally."
+          },
+          {
+            "text": "It automatically optimizes component rendering performance.",
+            "is_correct": false,
+            "explanation": "While good code organization can indirectly help performance, custom hooks don't inherently optimize rendering."
+          },
+          {
+            "text": "It allows direct manipulation of the DOM.",
+            "is_correct": false,
+            "explanation": "Custom hooks are for logic, not direct DOM manipulation."
+          }
+        ]
+      }
+    ]
+  }
+]
+
