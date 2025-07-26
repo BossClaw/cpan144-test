@@ -214,25 +214,17 @@ h2 {
 	margin-block: 16px;
 }
 
-.question-counter {
-	text-align: center;
-	color: #666;
-	margin-bottom: 20px;
-	font-size: 1rem;
-}
 
 /* Animation for transitions */
 @keyframes fadeIn {
 	from {
 		opacity: 0;
-		transform: translateY(20px);
 	}
 	to {
 		opacity: 1;
-		transform: translateY(0);
 	}
 }
 
 .fade-in {
-	animation: fadeIn 0.5s ease-out;
+	animation: fadeIn 0.25s ease-out;
 }

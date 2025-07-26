@@ -7,6 +7,7 @@ class QuizApp {
 		this.firstAttemptCorrect = 0; // New variable to track first attempt correct answers
 		this.selectedAnswer = null;
 		this.answered = false;
+		this.answeredCorrect = false;
 
 		// DOM elements
 		this.questionProgress = document.getElementById("question-progress");
@@ -70,12 +71,8 @@ class QuizApp {
 
 	updateProgress() {
 		const progressBar = document.querySelector("#progress-bar");
-		const questionCounter = document.getElementById("question-counter");
-
 		const progress = ((this.currentQuestionIndex + 1) / this.questions.length) * 100;
 		progressBar.style.width = `${progress}%`;
-
-		questionCounter.textContent = `Question ${this.currentQuestionIndex + 1} of ${this.questions.length}`;
 	}
 
 	displayQuestion() {
@@ -87,8 +84,8 @@ class QuizApp {
 		const question = this.questions[this.currentQuestionIndex];
 
 		// Add fade-in animation
-		// this.quizArea.classList.add("fade-in");
-		// setTimeout(() => this.quizArea.classList.remove("fade-in"), 125);
+		this.quizArea.classList.add("fade-in");
+		setTimeout(() => this.quizArea.classList.remove("fade-in"), 250);
 
 		// PROGRESS
 		this.questionProgress.textContent = "" + this.currentQuestionIndex + "/" + this.questions.length;
@@ -100,7 +97,11 @@ class QuizApp {
 		this.optionsContainer.innerHTML = "";
 		this.feedback.style.display = "none";
 		this.nextButton.disabled = true;
-		this.answered = false; // Reset answered status for new question
+
+		// RESET ANSWERED STATUS FOR NEW QUESTION
+		this.answered = false;
+		this.answeredCorrect = false;
+
 		this.selectedAnswer = null;
 
 		// Shuffle options for the current question
@@ -120,16 +121,22 @@ class QuizApp {
 	}
 
 	selectAnswer(selectedOptionElement, isCorrect) {
+		// console.log("SELECT ANSWER[" + selectedOptionElement + "] CORRECT[" + isCorrect + "]");
+
+		// GET TEH CUR QUESTION
 		const currentQuestion = this.questions[this.currentQuestionIndex];
 
-		// If already answered correctly on first attempt, or if it's not the first attempt and it's incorrect, do nothing
-		if (currentQuestion.answeredCorrectlyOnFirstAttempt || (this.answered && !isCorrect)) {
-			return;
-		}
+		// IF CORRECT DO NOTHING
+		// WIP - ALLOW MULTIPLE 'WRONG ANSWERS'
+		// if (currentQuestion.answeredCorrect answeredCorrectlyOnFirstAttempt || (this.answered && !isCorrect)) {
+		// if (this.answeredCorrect) {
+		// 	return;
+		// }
 
+		// GET OPTIONS
 		const options = this.optionsContainer.querySelectorAll(".option");
 
-		// Clear previous feedback and selections for re-attempts
+		// WIP - Clear previous feedback and selections for re-attempts
 		if (!this.answered) {
 			// Only clear if it's the very first attempt for this question
 			this.feedback.style.display = "none";
@@ -138,32 +145,53 @@ class QuizApp {
 			});
 		}
 
+		// UPDATE SELECTED
 		selectedOptionElement.classList.add("selected");
 
+		// STUFF
 		const originalIndex = parseInt(selectedOptionElement.dataset.originalIndex);
 		const selectedOption = currentQuestion.options[originalIndex];
 
+		// FEEDBACK
 		this.feedback.textContent = selectedOption.explanation;
 		this.feedback.style.display = "block";
 
+		// HANDLE IF IS CORRECT
 		if (isCorrect) {
+			// UPDATE FEEDBACK & STYLE
 			this.feedback.className = "feedback correct";
 			selectedOptionElement.classList.add("correct");
 
+			// HANDLE IF CORRECT ON FIRST TRY
 			if (!this.answered) {
-				// Only increment if it's the first attempt for this question
-				this.firstAttemptCorrect++;
+				this.firstAttemptCorrect++;                
 				currentQuestion.answeredCorrectlyOnFirstAttempt = true; // Mark question as answered correctly on first attempt
 			}
-			this.answered = true; // Lock selection after correct answer
+
+            // ANY POINT IN ANSWERING
+            this.answeredCorrect = true;
+
+			// ALLOW MOVING ONTO NEXT QUESTION
 			this.nextButton.disabled = false;
-			options.forEach((option) => option.classList.add("disabled")); // Disable all options after correct answer
+
+			// LOCK SELECTION AFTER CORRECT ANSWER
+			this.answered = true;
+
+			// WIP - DISABLE ALL OPTIONS AFTER CORRECT ANSWER
+			options.forEach((option) => option.classList.add("disabled"));
 		} else {
+			// HANDLE INCORRECT
 			this.feedback.className = "feedback incorrect";
 			selectedOptionElement.classList.add("incorrect");
-			this.answered = true; // Mark as answered (incorrectly on first attempt)
-			this.nextButton.disabled = true;
-			selectedOptionElement.classList.add("disabled"); // Disable only the incorrect selected option
+
+			// MARK AS ANSWERED (INCORRECTLY ON FIRST ATTEMPT)
+			this.answered = true;
+
+			// IF NOT CORRECT ANSWERED YET, DISABLE NEXT, FORCE TO GET CORRECT
+            this.nextButton.disabled = !this.answeredCorrect;
+
+			// DISABLE ONLY THE INCORRECT SELECTED OPTION
+			selectedOptionElement.classList.add("disabled");
 		}
 
 		// Save progress
